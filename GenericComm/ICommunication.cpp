@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include <atlstr.h>
 #include <map>
-#include <vector>
 #include "constants.h"
 #include "IMessage.h"
 #include "IMessageFactory.h"
