@@ -2,33 +2,36 @@
 class CCommunication_Client :
 	public CCommunication_TCP
 {
-	/*protected:
-	CHashTable<EMessageType, CList<void*>> m_hashCallbacks;
-	IMessageFactory* m_pMessageFactory;
-public:
+
+//protected:
+
+	//CHashTable<EMessageType, CList<void*>> m_hashCallbacks;
+
+	//IMessageFactory* m_pMessageFactory;
+
+//public:
 	
 	
-	void RegisterCallback(EMessageType eMessageType, void* pfnCallback)
+	/*void RegisterCallback(EMessageType eMessageType, void* pfnCallback)
 	{
 		m_hashCallbacks.Insert(eMessageType, pfnCallback);
-	}
+	}*/
 	
-	void RemoveCallback(EMessageType eMessageType, void* pfnCallback)
+	/*void RemoveCallback(EMessageType eMessageType, void* pfnCallback)
 	{
 		m_hashCallbacks.Remove(eMessageType, pfnCallback);
-	}	
+	}*/	
 	
-	virtual bool SendMessage(IMessage* pMessage) = 0;
 	
 	//Constructor
-	ICommunication(IMessageFactory* pMessageFactory)
+	/*ICommunication(IMessageFactory* pMessageFactory)
 	{
 		m_pMessageFactory = pMessageFactory;
 	}
 };
 
 
-class CCommunication_TCP : public ICommunication
+/*class CCommunication_TCP : public ICommunication
 {
 private:
 	CSocket m_socket;
@@ -59,15 +62,16 @@ public:
 		}
 	}
 };*/
-public:
-	CCommunication_Client();
-	~CCommunication_Client();
-	// Implement these; inherited from ICommunication interface
-	virtual bool Connect(CString sConnectionDetails);
-	virtual bool Disconnect();
 
 private:
 	static CCommunication_Client* s_pCCommunicationClient = NULL; // SINGLETON; 
+
+	CCommunication_Client();
+	//Constructor; constructor of CCommunication_Client calls constructor of 'abba' ie. CCommunication_TCP, and passes in as an argument to the abba constructor a CMessageFactory_WhatsApp object
+	CCommunication_Client() : CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
+	{
+		Register();
+	}
 
 	// Creating queues of objects (text message, acknowledge and group) for INCOMING messages
 	CSafeMessageQueue m_queueTextMessages;
@@ -75,6 +79,7 @@ private:
 	CSafeMessageQueue m_queueAcknowledge;
 
 	// This function fills a hash table(declared in  'IComm', the sabba)with message type and corresponding callback function    [5]*****************************************************************
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<REGISTERCALLBACK WAS PROTECTED METHOD IN ICOMM???
 	void Register()
 	{
 		//since RegisterCallback is an inherited method, using "this->" makes it clear that this method exists in this object(even though it is technically unnecessary)
@@ -98,6 +103,13 @@ private:
 	}
 
 public:
+	~CCommunication_Client();
+
+	// IMPLEMENT these; inherited from ICommunication interface
+	virtual bool Connect(CString sConnectionDetails);
+	virtual bool Disconnect();
+	virtual bool SendMessage(IMessage* pMessage);
+
 	static CCommunication_Client* GetInstance()  // SINGLETON               [1] *****************************************************************************************************************
 	{
 		if (s_pCCommunicationClient == NULL)
@@ -107,20 +119,14 @@ public:
 		return s_pCCommunicationClient;
 	}
 
-	//Constructor; constructor of CCommunication_Client calls constructor of 'abba' ie. CCommunication_TCP, and passes in as an argument to the abba constructor a CMessageFactory_WhatsApp object
-CCommunication_Client(): CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
-{
-	Register();
-}
+	// Getters for the queues 
+	const CSafeMessageQueue& GetTextMessagesQueue() { return m_queueTextMessages; }
+    const CSafeMessageQueue& GetGroupCreateUpdateMessagesQueue() { return m_queueGroupCreateUpdateMessages; }
+	const CSafeMessageQueue& GetAcknowledgeMessagesQueue() { return m_queueAcknowledge; }
 
-		// Getters for the queues 
-					   const CSafeMessageQueue& GetTextMessagesQueue() { return m_queueTextMessages; }
-					   const CSafeMessageQueue& GetGroupCreateUpdateMessagesQueue() { return m_queueGroupCreateUpdateMessages; }
-					   const CSafeMessageQueue& GetAcknowledgeMessagesQueue() { return m_queueAcknowledge; }
-
-					   // methods for OUTGOING messages; MUST IMPLEMENT
-					   void SendTextMessage(const TTextMessage& text); // argument: struct (3) // IMPLEMENTATION WILL INC CREATING A TEXT MSSG OBJ(using factory) AND CALLING TObUFFER METHOD
-					   void SendGroupCreateUpdate(const TGroup& group); // argument: struct (2)
-					   void SendAck(const TTextMessage& textMessageToAck); // argument: struct (3)
+	// methods for OUTGOING messages; must IMPLEMENT
+	void SendTextMessage(const TTextMessage& text); // argument: struct (3) // IMPLEMENTATION WILL INC CREATING A TEXT MSSG OBJ(using factory) AND CALLING TObUFFER AND THEN SENDMESSAGE()
+	void SendGroupCreateUpdate(const TGroup& group); // argument: struct (2)
+	void SendAck(const TTextMessage& textMessageToAck); // argument: struct (3)
 };
 

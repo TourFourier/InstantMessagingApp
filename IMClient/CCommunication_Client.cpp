@@ -21,3 +21,7 @@ CCommunication_Client::CCommunication_Client()
 CCommunication_Client::~CCommunication_Client()
 {
 }
+
+bool CCommunication_Client::Connect(CString sConnectionDetails) {}
+bool CCommunication_Client::Disconnect() {}
+bool CCommunication_Client::SendMessage(IMessage* pMessage) {}
