@@ -21,25 +21,25 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCommunication_TCP.h">
+    <ClInclude Include="..\GenericComm\CCommunication_TCP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ICommunication.h">
+    <ClInclude Include="..\GenericComm\CMefathimSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMessage.h">
+    <ClInclude Include="..\GenericComm\constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSafeMessageQueue.h">
+    <ClInclude Include="..\GenericComm\CSafeMessageQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IMessageFactory.h">
+    <ClInclude Include="..\GenericComm\ICommunication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="constants.h">
+    <ClInclude Include="..\GenericComm\IMessage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CMefathimSocket.h">
+    <ClInclude Include="..\GenericComm\IMessageFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,22 +47,22 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCommunication_TCP.cpp">
+    <ClCompile Include="..\GenericComm\CCommunication_TCP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ICommunication.cpp">
+    <ClCompile Include="..\GenericComm\CMefathimSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IMessage.cpp">
+    <ClCompile Include="..\GenericComm\CSafeMessageQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSafeMessageQueue.cpp">
+    <ClCompile Include="..\GenericComm\ICommunication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IMessageFactory.cpp">
+    <ClCompile Include="..\GenericComm\IMessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CMefathimSocket.cpp">
+    <ClCompile Include="..\GenericComm\IMessageFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <rpc.h> 
 #include "structsAndConstants.h"
-#include "IMessage.h"
+#include "../GenericComm/IMessage.h"
 
 #include "MGroupCreateUpdate.h"
 

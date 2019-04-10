@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "structsAndConstants.h"
-#include "IMessage.h"
+#include "../GenericComm/IMessage.h"
+#include "../GenericComm/IMessageFactory.h"
 #include "MGroupCreateUpdate.h"
 #include "MAcknowledgeMessage.h"
 #include "MTextMessage.h"

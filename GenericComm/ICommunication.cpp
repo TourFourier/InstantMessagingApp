@@ -17,13 +17,13 @@ ICommunication::~ICommunication()
 {
 }
 
-void ICommunication::RegisterCallback(EMessageType eMessageType, void* pfnCallback)
+void ICommunication::RegisterCallback(int eMessageType, void(*pfnCallback)(IMessage*))
 {
-	m_hashCallbacks.insert(std::pair<EMessageType, void*>(eMessageType, pfnCallback));
+	m_hashCallbacks.insert(std::pair<int, void*>(eMessageType, pfnCallback));
 	//m_hashCallbacks[eMessageType] = pfnCallback;
 }
 
-void ICommunication::RemoveCallback(EMessageType eMessageType, void* pfnCallback)
+void ICommunication::RemoveCallback(int eMessageType, void* pfnCallback)
 {
 	m_hashCallbacks.erase(eMessageType);
 }

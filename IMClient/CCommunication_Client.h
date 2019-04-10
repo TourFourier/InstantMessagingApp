@@ -28,49 +28,17 @@ class CCommunication_Client :
 	{
 		m_pMessageFactory = pMessageFactory;
 	}
-};
-
-
-/*class CCommunication_TCP : public ICommunication
-{
-private:
-	CSocket m_socket;
-public:
-	CCommunication_TCP(IMessageFactory* pMessageFactory) :ICommunication(pMessageFactory) {}
-
-	// Implement ICommunication functions.
-
-	// This function is to be called by network card. 1
-	// It looks for the synch-word, then build up the buffer by the length field, 
-	// and eventually calls correct handler by the message type, delivering it the message buffer:
-	void OnMessageReceived(BYTE* pBuffer, int nLength)
-	{
-		// Notice this function is called on seprate thread then the main thread.
-		// 0. Get message type from buffer (notice that in all messsages, first two
-		//    members are the GUID and then type (see IMessage class) ie. this will move pointer over to point at type variable in buffer array. 
-		//This explains the folowing line:
-		EMessageType type = *(EMessageType*)(pBuffer + sizeof(GUID));//move pointer over till reach type;cast to pointer to enum;get content of pointer
-		// 1. Create Message object by the type.
-		IMessage* pMessage = m_pMessageFactory->CreateMessage(type); // 'pMessage' : Message obj
-		pMessage->FromBuffer(pBuffer, nLength);// /Calling mssg obj.'s FromBuffer method which Fills the message obj.'s fields using the inputed buffer
-		// 2. Call callback
-		CList<void*> callbacks = m_hashCallbacks[type]; // 'callbacks' : specific callback func
-		for (int i = 0; i < callbacks.GetSize(); i++)
-		{
-			void* pfnCallback = callbacks[i];
-			(*pfnCallback)(pMessage);// Calling the callback func and passing in message obj. as an argument; the callbacks simply push the message into a queue to be handled by main thread
-		}
-	}
 };*/
+
 
 private:
 	static CCommunication_Client* s_pCCommunicationClient = NULL; // SINGLETON; 
 
-	CCommunication_Client();
 	//Constructor; constructor of CCommunication_Client calls constructor of 'abba' ie. CCommunication_TCP, and passes in as an argument to the abba constructor a CMessageFactory_WhatsApp object
-	CCommunication_Client() : CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
+	CCommunication_Client(CString sConnectionDetails) : CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
 	{
 		Register();
+		Connect(sConnectionDetails);
 	}
 
 	// Creating queues of objects (text message, acknowledge and group) for INCOMING messages
@@ -78,39 +46,19 @@ private:
 	CSafeMessageQueue m_queueGroupCreateUpdateMessages;
 	CSafeMessageQueue m_queueAcknowledge;
 
-	// This function fills a hash table(declared in  'IComm', the sabba)with message type and corresponding callback function    [5]*****************************************************************
+	// This method fills a hash table(declared in  'IComm', the sabba)with message type and corresponding callback function    [5]*****************************************************************
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<REGISTERCALLBACK WAS PROTECTED METHOD IN ICOMM???
-	void Register()
-	{
-		//since RegisterCallback is an inherited method, using "this->" makes it clear that this method exists in this object(even though it is technically unnecessary)
-		this->RegisterCallback(EMessageType::TEXT_MESSAGE, OnTextMessageReceived);
-		this->RegisterCallback(EMessageType::CREATE_UPDATE_GROUP, OnGroupCreateUpdateReceived);
-		this->RegisterCallback(EMessageType::ACKNOWLEDGE, OnAcknowledgeReceived);
-	}
+	void Register();
 
 	// These are the callback functions ie. for when a new message or ack or group  occur
-	void OnTextMessageReceived(MTextMessage* pMessage)
-	{
-		m_queueTextMessages.Push(pMessage);
-	}
-	void OnGroupCreateUpdateReceived(MGroupCreateUpdate* pMessage)
-	{
-		m_queueGroupCreateUpdateMessages.Push(pMessage);
-	}
-	void OnAcknowledgeReceived(MAcknowledgeMessage* pMessage)
-	{
-		m_queueAcknowledge.Push(pMessage);
-	}
+	static void OnTextMessageReceived(MTextMessage* pMessage);
+	static void OnGroupCreateUpdateReceived(MGroupCreateUpdate* pMessage);
+	static void OnAcknowledgeReceived(MAcknowledgeMessage* pMessage);
 
 public:
 	~CCommunication_Client();
 
-	// IMPLEMENT these; inherited from ICommunication interface
-	virtual bool Connect(CString sConnectionDetails);
-	virtual bool Disconnect();
-	virtual bool SendMessage(IMessage* pMessage);
-
-	static CCommunication_Client* GetInstance()  // SINGLETON               [1] *****************************************************************************************************************
+	static CCommunication_Client* GetInstance()  // SINGLETON              
 	{
 		if (s_pCCommunicationClient == NULL)
 		{

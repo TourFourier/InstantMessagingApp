@@ -6,20 +6,20 @@ class CCommunication_TCP :
 private:
 	CSocket m_socket;
 public:
-	CCommunication_TCP(IMessageFactory* pMessageFactory) :ICommunication(pMessageFactory) {}
+	CCommunication_TCP(IMessageFactory* pMessageFactory);
 	~CCommunication_TCP();
 
 
 	// <<<<<<<<<<<Implement ICommunication functions.
-	virtual bool Connect(CString sConnectionDetails) = 0;
-	virtual bool Disconnect() = 0;
-	virtual bool SendMessage(IMessage* pMessage) = 0;
+	virtual bool Connect(CString sConnectionDetails);//put in constructor of 
+	virtual bool Disconnect();
+	virtual bool SendingMessage(IMessage* pMessage);
 
 
 	// This function is to be called by network card. 
 	// It looks for the synch-word, then build up the buffer by the length field, 
 	// and eventually calls correct handler by the message type, delivering it the message buffer:
-	void OnMessageReceived(char* pBuffer, int nLength);
+	void OnMessageReceived(char* pBuffer);
 
 };
 

@@ -1,15 +1,17 @@
 #pragma once
 
+#include <synchapi.h>
+
 
 class  CSafeMessageQueue
 {
 	CRITICAL_SECTION m_cs;
-	std::queue<IMessage&> m_qMessageQueue;
+	std::queue<IMessage*> m_qMessageQueue;
 public:
 	CSafeMessageQueue();
 	~CSafeMessageQueue();
 
-	void Push(IMessage& message);
-	IMessage& Pop();
+	void Push(IMessage* message);
+	IMessage* Pop();
 };
 

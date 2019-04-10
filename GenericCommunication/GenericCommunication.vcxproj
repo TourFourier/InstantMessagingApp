@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{B719FEA7-A3F5-470C-ACBE-2F8AFA5FA383}</ProjectGuid>
+    <ProjectGuid>{486AB91D-EC3B-445B-993D-3888474E0E9B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GenericComm</RootNamespace>
+    <RootNamespace>GenericCommunication</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -31,7 +31,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <UseOfMfc>Static</UseOfMfc>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -39,12 +39,14 @@
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,6 +54,7 @@
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -90,7 +93,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,7 +106,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,7 +121,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -138,7 +138,6 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,23 +147,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CCommunication_TCP.h" />
-    <ClInclude Include="CMefathimSocket.h" />
-    <ClInclude Include="constants.h" />
-    <ClInclude Include="CSafeMessageQueue.h" />
-    <ClInclude Include="ICommunication.h" />
-    <ClInclude Include="IMessage.h" />
-    <ClInclude Include="IMessageFactory.h" />
+    <ClInclude Include="..\GenericComm\CCommunication_TCP.h" />
+    <ClInclude Include="..\GenericComm\CMefathimSocket.h" />
+    <ClInclude Include="..\GenericComm\constants.h" />
+    <ClInclude Include="..\GenericComm\CSafeMessageQueue.h" />
+    <ClInclude Include="..\GenericComm\ICommunication.h" />
+    <ClInclude Include="..\GenericComm\IMessage.h" />
+    <ClInclude Include="..\GenericComm\IMessageFactory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CCommunication_TCP.cpp" />
-    <ClCompile Include="CMefathimSocket.cpp" />
-    <ClCompile Include="CSafeMessageQueue.cpp" />
-    <ClCompile Include="ICommunication.cpp" />
-    <ClCompile Include="IMessage.cpp" />
-    <ClCompile Include="IMessageFactory.cpp" />
+    <ClCompile Include="..\GenericComm\CCommunication_TCP.cpp" />
+    <ClCompile Include="..\GenericComm\CMefathimSocket.cpp" />
+    <ClCompile Include="..\GenericComm\CSafeMessageQueue.cpp" />
+    <ClCompile Include="..\GenericComm\ICommunication.cpp" />
+    <ClCompile Include="..\GenericComm\IMessage.cpp" />
+    <ClCompile Include="..\GenericComm\IMessageFactory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
