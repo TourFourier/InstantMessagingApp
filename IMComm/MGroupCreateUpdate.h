@@ -11,7 +11,7 @@ public:
 	const TGroup& GetGroup() { return m_group; }
 
 	// Implement IMessage functions.
-   virtual int Size() = 0;
+   virtual int Size();
    virtual bool ToBuffer();
    virtual bool FromBuffer(char* pBuffer, int nLength);
 };

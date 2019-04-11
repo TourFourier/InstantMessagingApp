@@ -4,7 +4,6 @@
 #include "IMessage.h"
 #include "IMessageFactory.h"
 #include "ICommunication.h"
-#include "CMefathimSocket.h"
 #include "CCommunication_TCP.h"
 
 
@@ -38,7 +37,7 @@ void CCommunication_TCP::OnMessageReceived(char* pBuffer)
 }
 
 
-// methods that belong to CMefathimSocket/ASyncSocket and are defined. I have only to call them.
+// methods that belong to ASyncSocket and are deffined. I have only to call them
 //bool CCommunication_TCP::Connect(CString sConnectionDetails) {}
 //bool CCommunication_TCP::Disconnect() {}
 //bool CCommunication_TCP::SendingMessage(IMessage* pMessage) {}

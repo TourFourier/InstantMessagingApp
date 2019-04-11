@@ -32,13 +32,13 @@ class CCommunication_Client :
 
 
 private:
-	static CCommunication_Client* s_pCCommunicationClient = NULL; // SINGLETON; 
+	static CCommunication_Client* s_pCCommunicationClient; // SINGLETON; 
 
 	//Constructor; constructor of CCommunication_Client calls constructor of 'abba' ie. CCommunication_TCP, and passes in as an argument to the abba constructor a CMessageFactory_WhatsApp object
-	CCommunication_Client(CString sConnectionDetails) : CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
+	CCommunication_Client(/*CString sConnectionDetails*/) : CCommunication_TCP(new CMessageFactory_WhatsApp)     //[2]***************************************************************************************
 	{
 		Register();
-		Connect(sConnectionDetails);
+		//m_socket.Connect(need address...);
 	}
 
 	// Creating queues of objects (text message, acknowledge and group) for INCOMING messages
@@ -51,11 +51,11 @@ private:
 	void Register();
 
 	// These are the callback functions ie. for when a new message or ack or group  occur
+
+public:
 	static void OnTextMessageReceived(MTextMessage* pMessage);
 	static void OnGroupCreateUpdateReceived(MGroupCreateUpdate* pMessage);
 	static void OnAcknowledgeReceived(MAcknowledgeMessage* pMessage);
-
-public:
 	~CCommunication_Client();
 
 	static CCommunication_Client* GetInstance()  // SINGLETON              

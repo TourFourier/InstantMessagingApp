@@ -3,6 +3,10 @@
 //
 
 #include "stdafx.h"
+#include "../IMComm/structsAndConstants.h"
+#include "../IMComm/MTextMessage.h"
+#include "CCommunication_Client.h"
+#include <iostream>
 #include "afxwinappex.h"
 #include "afxdialogex.h"
 #include "IMClient.h"
@@ -60,6 +64,18 @@ CIMClientApp theApp;
 
 BOOL CIMClientApp::InitInstance()
 {
+	CString s(L"Yehoshua");
+	char* cBuffer = new char[20];
+	//memcpy(cBuffer, m_sText.GetBuffer(), m_sText.GetLength() * 2);
+	memcpy(cBuffer, s.GetBuffer(), s.GetLength() * 2);
+	for (int i=0; i<20;i++)
+		std::cout << cBuffer[i];
+
+
+
+	CString s1;
+
+
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
 	// visual styles.  Otherwise, any window creation will fail.

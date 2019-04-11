@@ -1,21 +1,22 @@
 #include "stdafx.h"
-#include "CMefathimSocket.h"
-#include "ICommunication.h"
-#include "CCommunication_TCP.h"
-#include "CSafeMessageQueue.h"
-#include "structsAndConstants.h"
+#include "afxsock.h"
+#include "../GenericCommunication/CMefathimSocket.h"
+#include "../GenericCommunication/ICommunication.h"
+#include "../GenericCommunication/CCommunication_TCP.h"
+#include "../GenericCommunication/CSafeMessageQueue.h"
+#include "../IMComm/structsAndConstants.h"
 #include <rpc.h>
-#include "IMessage.h"
-#include "MTextMessage.h"
-#include "MGroupCreateUpdate.h"
-#include "MAcknowledgeMessage.h"
-#include "CMessageFactory_WhatsApp.h"
+#include "../GenericCommunication/IMessage.h"
+#include "../IMComm/MTextMessage.h"
+#include "../IMComm/MGroupCreateUpdate.h"
+#include "../IMComm/MAcknowledgeMessage.h"
+#include "../IMComm/CMessageFactory_WhatsApp.h"
 
 #include "CCommunication_Client.h"
 
 
 //CCommunication_Client::CCommunication_Client(){}
-
+CCommunication_Client* CCommunication_Client::s_pCCommunicationClient = NULL;
 
 CCommunication_Client::~CCommunication_Client()
 {
@@ -48,11 +49,10 @@ void CCommunication_Client::Register()
 // IMPLEMENTATION WILL INC CREATING A TEXT MSSG OBJ(using factory) AND CALLING TObUFFER AND THEN SENDMESSAGE()
 void CCommunication_Client::SendTextMessage(const TTextMessage& text) 
 {
-	MTextMessage* pMTextmessage = new MTextmessage(text);
+	MTextMessage* pMTextmessage = new MTextMessage(1,text);
 	char* cBuffer = new char[pMTextmessage->Size()];
 	pMTextmessage->ToBuffer(cBuffer);
-
-
+	m_socket.Send(cBuffer, sizeof(cBuffer));
 };
 void CCommunication_Client::SendGroupCreateUpdate(const TGroup& group) {};
 void CCommunication_Client::SendAck(const TTextMessage& textMessageToAck) {};

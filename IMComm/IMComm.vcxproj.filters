@@ -27,12 +27,6 @@
     <ClInclude Include="structsAndConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MAcknowledgeMessage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MGroupCreateUpdate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CMessageFactory_WhatsApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,12 +39,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MTextMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MAcknowledgeMessage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MGroupCreateUpdate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CMessageFactory_WhatsApp.cpp">
