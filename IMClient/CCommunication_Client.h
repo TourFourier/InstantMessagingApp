@@ -1,4 +1,7 @@
 #pragma once
+
+#include "../GenericCommunication/csafemessagequeue.h"
+
 class CCommunication_Client :
 	public CCommunication_TCP
 {
